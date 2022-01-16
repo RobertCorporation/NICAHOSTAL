@@ -98,15 +98,19 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\cama.js" />
     <Content Include="Scripts\generic.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\marca.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\tipohabitacion.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CamaController.cs" />
+    <Compile Include="Controllers\MarcaController.cs" />
     <Compile Include="Controllers\TipoHabitacionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -125,6 +129,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\TipoHabitacion\Inicio.cshtml" />
     <Content Include="Views\TipoHabitacion\VistaPruebaInicio.cshtml" />
+    <Content Include="Views\Cama\Index.cshtml" />
+    <Content Include="Views\Marca\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CamaCLS.cs" />
+    <Compile Include="MarcaCLS.cs" />
     <Compile Include="TipoHabitacionCLS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

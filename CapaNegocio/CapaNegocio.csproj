@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CamaBL.cs" />
+    <Compile Include="MarcaBL.cs" />
     <Compile Include="TipoHabitacionBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

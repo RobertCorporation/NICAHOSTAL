@@ -1,4 +1,10 @@
 ﻿function pintar(objConfiguracion) {
+    //URL Absoluta  https://localhost ...
+    var raiz = document.getElementById("hdfOculto").value;
+    var urlAbsolute = window.location.protocol + "//" +
+        window.host + raiz + objConfiguracion.url;
+
+    //Controles // Accion     Trabajando con URL Relativa 
     fetch(objConfiguracion.url)
         .then(res => res.json())
         .then(res => {
@@ -24,6 +30,6 @@
             }
             contenido += "</table>"
             document.getElementById("divtabla").innerHTML = contenido;
-            alert(res)
+           
         })
 }

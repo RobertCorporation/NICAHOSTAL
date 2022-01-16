@@ -37,14 +37,20 @@
 
                 <ul id="menu-content" class="menu-content collapse out">
                     <li>
-                        @Html.ActionLink("Vista 1", "Inicio", "TipoHabitacion",
+                        @Html.ActionLink("TipoHabitacion", "Index", "TipoHabitacion",
                         new {area ="" }, new { @class = "nav-link js-scroll-trigger" })
 
                     </li>
                     <li>
-                        @Html.ActionLink("Vista 2", "VistaPruebaInicio", "TipoHabitacion",
+                        @Html.ActionLink("Cama", "Index", "Cama",
                          new {area ="" }, new { @class = "nav-link js-scroll-trigger" })
                     </li>
+
+                    <li>
+                        @Html.ActionLink("Marca", "Index", "Marca",
+                         new {area ="" }, new { @class = "nav-link js-scroll-trigger" })
+                    </li>
+
 
                     <li>
                         <a href="#eklentiler">
@@ -68,25 +74,20 @@
                         </a>
                     </li>
                     <!--li data-toggle="collapse" data-target="#new" class="collapsed">
-                              <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
-                            </li>
-                            <ul class="sub-menu collapse" id="new">
-                              <li>New New 1</li>
-                              <li>New New 2</li>
-                              <li>New New 3</li>
-                            </ul-->
+              <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
+            </li>
+            <ul class="sub-menu collapse" id="new">
+              <li>New New 1</li>
+              <li>New New 2</li>
+              <li>New New 3</li>
+            </ul-->
                 </ul>
             </div>
         </div>
     </div></div>
     <div style="margin-left:230px">@RenderBody()</div>
-    <!--<div id="giris"></div>
-    <div id="nasil"></div>
-    <div id="eklentiler"></div>
-    <div id="ornekler"></div>
-    <div id="ayrintilar"></div>
-    <div id="digerleri"></div>
-        -->
+
+    <input type="type" id="hdfOculto" value="@Url.Content("~")" />
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
