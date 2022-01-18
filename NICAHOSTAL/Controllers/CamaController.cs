@@ -20,5 +20,10 @@ namespace NICAHOSTAL.Controllers
             CamaBL oCamaBL = new CamaBL();
             return Json(oCamaBL.listarCama(), JsonRequestBehavior.AllowGet);
         }
+
+        public string Busqueda(string nombre)
+        {
+            return nombre;
+        }
     }
 }
