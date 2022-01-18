@@ -1,4 +1,8 @@
-﻿function pintar(objConfiguracion) {
+﻿function get(id) {
+    return document.getElementById(id).value;
+}
+
+function pintar(objConfiguracion) {
     //URL Absoluta  https://localhost ...
     var raiz = document.getElementById("hdfOculto").value;
     var urlAbsolute = window.location.protocol + "//" +
