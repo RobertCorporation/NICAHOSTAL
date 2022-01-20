@@ -82,5 +82,59 @@ namespace CapaDatos
             return lista;
 
         }
+
+        public List<TipoHabitacionCLS> FiltrarTipoHabitacion(string nombreHabitacion)
+        {
+            List<TipoHabitacionCLS> lista = null;
+            using (SqlConnection cn = new SqlConnection(Cadena))
+            {
+                try
+                {
+                    //abrir conecion
+                    cn.Open();
+                    //llamar SP
+                    using (SqlCommand comand = new SqlCommand("uspFiltrarTipoHabitacion", cn))
+                    {
+                        comand.CommandType = CommandType.StoredProcedure;
+                        comand.Parameters.AddWithValue("@nombreHabitacion", nombreHabitacion);
+                        SqlDataReader drd = comand.ExecuteReader();
+                        if (drd != null)
+                        {
+                            lista = new List<TipoHabitacionCLS>();
+                            TipoHabitacionCLS oTipoHabitacionCLS;
+                            int posId = drd.GetOrdinal("IdTipoHabitacion");
+                            int posNombre = drd.GetOrdinal("Nombre");
+                            int posDescripcion = drd.GetOrdinal("Descripcion");
+                            while (drd.Read())
+                            {
+                                oTipoHabitacionCLS = new TipoHabitacionCLS();
+                                oTipoHabitacionCLS.Id = drd.GetInt32(posId);
+                                oTipoHabitacionCLS.Nombre = drd.GetString(posNombre);
+                                oTipoHabitacionCLS.Descripcion = drd.GetString(posDescripcion);
+
+                                lista.Add(oTipoHabitacionCLS);
+
+                            }
+                        }
+                    }
+
+                    //cerrar la conecion
+                    cn.Close();
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine("Error de Conecion" + ex.Message);
+                }
+                finally
+                {
+                    cn.Close();
+                }
+
+
+            }
+            return lista;
+
+        }
     }
 }

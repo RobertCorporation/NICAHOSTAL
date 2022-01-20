@@ -20,5 +20,10 @@ namespace NICAHOSTAL.Controllers
             MarcaBL marcabl = new MarcaBL();
             return Json(marcabl.ListarMarca(), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult BuscarMarca(string nombre)
+        { MarcaBL marcalb = new MarcaBL();
+            return Json(marcalb.BuscarMarca(nombre), JsonRequestBehavior.AllowGet);
+        }
     }
 }

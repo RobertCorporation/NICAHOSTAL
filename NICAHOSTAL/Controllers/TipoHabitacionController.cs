@@ -30,5 +30,10 @@ namespace NICAHOSTAL.Controllers
             TipoHabitacionBL obj = new TipoHabitacionBL();
             return Json(obj.listarTipoHabitacion(), JsonRequestBehavior.AllowGet);
         }
+        public JsonResult FiltrarTipoHabitacionPorNombre(string nombreHabitacion)
+        {
+            TipoHabitacionBL obj = new TipoHabitacionBL();
+            return Json(obj.FiltrarTipoHabitacion(nombreHabitacion), JsonRequestBehavior.AllowGet);
+        }
     }
 }

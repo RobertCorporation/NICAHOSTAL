@@ -10,7 +10,7 @@ using System.Configuration;
 
 namespace CapaDatos
 {
-    public class CamaDAL:CadenaDAL
+    public class CamaDAL : CadenaDAL
     {
         public List<CamaCLS> listarCama()
         {
@@ -36,9 +36,9 @@ namespace CapaDatos
                             while (drd.Read())
                             {
                                 oCamaCLS = new CamaCLS();
-                                oCamaCLS.IdCama = drd.IsDBNull(posId) ? 0: drd.GetInt32(posId);
-                                oCamaCLS.Nombre = drd.IsDBNull(posNombre) ? string.Empty: drd.GetString(posNombre);
-                                oCamaCLS.Descripcion = drd.IsDBNull(posDescripcion)? string.Empty: drd.GetString(posDescripcion);
+                                oCamaCLS.IdCama = drd.IsDBNull(posId) ? 0 : drd.GetInt32(posId);
+                                oCamaCLS.Nombre = drd.IsDBNull(posNombre) ? string.Empty : drd.GetString(posNombre);
+                                oCamaCLS.Descripcion = drd.IsDBNull(posDescripcion) ? string.Empty : drd.GetString(posDescripcion);
 
                                 lista.Add(oCamaCLS);
 
@@ -59,6 +59,55 @@ namespace CapaDatos
                 }
             }
             return lista;
-        }      
+        }
+
+        public List<CamaCLS> BuscarPorNombre(string nombre)
+        {
+            List<CamaCLS> _lista = null;      
+            using (SqlConnection con = new SqlConnection(Cadena))
+            {
+                try
+                {
+                    // Abrir Conexion
+                    con.Open();
+                    //LLamar al SP
+                    using (SqlCommand cmd = new SqlCommand("uspFiltrarCama", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@nombreCama", nombre);
+                        SqlDataReader read = cmd.ExecuteReader();
+                        if (read != null)
+                        {
+                            _lista = new List<CamaCLS>();
+                            CamaCLS ocama;
+                            int posId = read.GetOrdinal("IdCama");
+                            int posNombre = read.GetOrdinal("Nombre");
+                            int posDescripcion = read.GetOrdinal("Descripcion");
+
+                            while (read.Read())
+                            {
+                                ocama = new CamaCLS();
+                                ocama.IdCama = read.IsDBNull(posId) ? 0 : read.GetInt32(posId);
+                                ocama.Nombre = read.IsDBNull(posNombre) ? string.Empty : read.GetString(posNombre);
+                                ocama.Descripcion = read.IsDBNull(posDescripcion) ? string.Empty : read.GetString(posDescripcion);
+                                _lista.Add(ocama);
+                            }
+                        }
+                       
+                    }
+                    con.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ha ocurrido Un error!!!" + ex.Message.ToString());
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }   
+            return _lista;
+        }
+         
     }
 }

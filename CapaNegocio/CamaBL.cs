@@ -16,5 +16,11 @@ namespace CapaNegocio
             return oCama.listarCama();
 
         }
+
+        public List<CamaCLS>FiltrarCamaPorNombre(string nombre)
+        {
+            CamaDAL _filtrarCamaPorNombre = new CamaDAL();
+            return _filtrarCamaPorNombre.BuscarPorNombre(nombre);
+        }
     }
 }
