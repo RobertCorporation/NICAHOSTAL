@@ -15,5 +15,11 @@ namespace CapaNegocio
             MarcaDAL marcaDAL = new MarcaDAL();
             return marcaDAL.ListarMarcas();
         }
+
+        public List<MarcaCLS> BuscarMarca(string nombre)
+        {
+            MarcaDAL marcaDAL = new MarcaDAL();
+            return marcaDAL.BuscarPorNombre(nombre);
+        }
     }
 }
