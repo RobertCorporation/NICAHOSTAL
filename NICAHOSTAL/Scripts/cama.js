@@ -11,11 +11,12 @@ function ListarCama() {
     },
         {
             busqueda: true,
-            url:"Cama/Busqueda",
-            nombreparametro:"nombre",
-            id: "txtnombrecama",
+            url:"Cama/FiltrarCamaPorNombre",
+            nombreparametro:"nombre",            
             //placeholder: "Ingrese nombre cama"
-            type: "text"
+            type: "text",
+            button:false,
+            id: "txtnombrecama",
         }
     )
 }
