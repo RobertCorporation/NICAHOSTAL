@@ -25,12 +25,13 @@ function Correcto(texto="Se realizó correctamente") {
 function Confirmacion(texto="¿Desea Guardar los Cambios?", title="Confirmacion", callback) {
   return  Swal.fire({
         title: title,
-        text: text,
+        text: texto,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
     }).then((result) => {
         if (result.isConfirmed) {
             callback();
@@ -177,6 +178,18 @@ function fetchGet(url, callback) {
         })
 }
 
+function fetchGetText(url, callback) {
+    var raiz = document.getElementById("hdfOculto").value;
+    var urlAbsoluta = window.location.protocol + "//" +
+        window.location.host + raiz + url;
+    fetch(urlAbsoluta).then(res => res.text())
+        .then(res => {
+            callback(res)
+        }).catch(err => {
+            console.log(err);
+        })
+}
+
 function Buscar() {
     var objconf = objConfiguracionGlobal;
     var objBus = objBusquedaGlobal;
@@ -218,4 +231,20 @@ function fetchPostText(url, frm, callback){
         }).catch(err => {
             console.log(err)
         });
+}
+
+function RecuperarGenerico(url, idFormulario, exceptiones = []) {
+    var elementos = document.querySelectorAll("#" + idFormulario + " [name]")
+    var NombreName;
+    fetchGet(url, function (res) {
+        for (var i = 0; i < elementos.length; i++) {
+            NombreName = elementos[i].name
+            //si esta incluido no hacer nada 
+            if (!exceptiones.includes(elementos[i].name)) {
+                setParametros(NombreName, res[NombreName])
+            }
+        }
+
+    });
+    
 }

@@ -21,5 +21,24 @@ namespace CapaNegocio
             MarcaDAL marcaDAL = new MarcaDAL();
             return marcaDAL.BuscarPorNombre(nombre);
         }
+
+        public MarcaCLS BuscarMarcaPorId(int Id)
+        {
+            MarcaDAL marcaDAL = new MarcaDAL();
+            return marcaDAL.BuscarMarcaPorID(Id);
+        }
+
+        public int GuardarMarca(MarcaCLS oMarcaCLS)
+        {
+            MarcaBL marcaBL = new MarcaBL();
+            return marcaBL.GuardarMarca(oMarcaCLS);
+
+        }
+
+        public int EliminarMarca(int Id)
+        {
+            MarcaBL marcaBL = new MarcaBL();
+            return marcaBL.EliminarMarca(Id);
+        }
     }
 }
