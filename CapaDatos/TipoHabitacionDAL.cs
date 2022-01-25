@@ -82,7 +82,6 @@ namespace CapaDatos
             return lista;
 
         }
-
         public List<TipoHabitacionCLS> FiltrarTipoHabitacion(string nombreHabitacion)
         {
             List<TipoHabitacionCLS> lista = null;
@@ -135,6 +134,76 @@ namespace CapaDatos
             }
             return lista;
 
+        }
+
+        public int GuardarTipoHabitacion(TipoHabitacionCLS oTipoHabitacion)
+        {
+            // Error
+            int resultado = 0;
+            using (SqlConnection con = new SqlConnection(Cadena))
+            {
+                try
+                {
+                    //Abro la conexion
+                    con.Open();
+                    using (SqlCommand cmd= new SqlCommand("uspGuardarTipoHabitacion", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@id", oTipoHabitacion.Id);
+                        cmd.Parameters.AddWithValue("@nombre", oTipoHabitacion.Nombre);
+                        cmd.Parameters.AddWithValue("@descripcion", oTipoHabitacion.Descripcion);
+                        resultado = cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+                catch (Exception e)
+                {
+                    resultado = 0;
+                    con.Close();
+                    Console.WriteLine("Ha ocurrido un error con los datos de entradas"+e.Message);
+                }
+            }
+            return resultado;
+        }
+
+        public TipoHabitacionCLS BuscarPorId(int Id)
+        {
+            TipoHabitacionCLS oTipoHabitacionCLS = null;
+            using (SqlConnection con = new SqlConnection(Cadena))
+            {
+                try
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand("uspRecuperarTipoHabitacion", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@id", Id);
+                        SqlDataReader read = cmd.ExecuteReader();
+                        if (read != null)
+                        {
+                            int posId = read.GetOrdinal("IdTipoHabitacion");
+                            int posNombre = read.GetOrdinal("Nombre");
+                            int posDescripcion = read.GetOrdinal("Descripcion");
+
+                            while (read.Read())
+                            {
+                                oTipoHabitacionCLS = new TipoHabitacionCLS();
+                                oTipoHabitacionCLS.Id = read.IsDBNull(posId) ? 0 : read.GetInt32(posId);
+                                oTipoHabitacionCLS.Nombre = read.IsDBNull(posNombre) ? string.Empty : read.GetString(posNombre);
+                                oTipoHabitacionCLS.Descripcion = read.IsDBNull(posDescripcion) ? string.Empty : read.GetString(posDescripcion);
+                            }
+                        }                     
+                    }
+                    con.Close();
+                }
+                catch (SqlException ex)
+                {
+                    Console.Error.WriteLine("Ocurrio un error con la Conexion", ex.Message.ToString());
+                    con.Close();
+                }
+
+            }
+            return oTipoHabitacionCLS;
         }
     }
 }
