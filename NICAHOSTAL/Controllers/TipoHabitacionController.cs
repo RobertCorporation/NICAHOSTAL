@@ -1,4 +1,5 @@
 ﻿using CapaDatos;
+using CapaEntidad;
 using CapaNegocio;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,18 @@ namespace NICAHOSTAL.Controllers
         {
             TipoHabitacionBL obj = new TipoHabitacionBL();
             return Json(obj.FiltrarTipoHabitacion(nombreHabitacion), JsonRequestBehavior.AllowGet);
+        }
+
+        public int GuardarDatos(TipoHabitacionCLS oTipoHabitacionCLS)
+        {
+            TipoHabitacionBL obj = new TipoHabitacionBL();
+            return obj.GuardarTipoHabitacion(oTipoHabitacionCLS);
+        }
+
+        public JsonResult BuscarPorId(int Id)
+        {
+            TipoHabitacionBL oTipoHabitacionBL = new TipoHabitacionBL();
+            return Json(oTipoHabitacionBL.BuscarPorId(Id), JsonRequestBehavior.AllowGet);
         }
     }
 }

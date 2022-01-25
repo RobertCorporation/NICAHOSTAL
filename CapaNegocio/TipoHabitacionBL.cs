@@ -24,6 +24,18 @@ namespace CapaNegocio
 
         }
 
+        public int GuardarTipoHabitacion(TipoHabitacionCLS oTipoHabitacion)
+        {
+            TipoHabitacionDAL oTipoHabitacionDAL = new TipoHabitacionDAL();
+            return oTipoHabitacionDAL.GuardarTipoHabitacion(oTipoHabitacion);
+        }
+
+        public TipoHabitacionCLS  BuscarPorId(int Id)
+        {
+            TipoHabitacionDAL oTipoHabitacionDAL = new TipoHabitacionDAL();
+            return oTipoHabitacionDAL.BuscarPorId(Id);
+        }
+
 
     }
 }

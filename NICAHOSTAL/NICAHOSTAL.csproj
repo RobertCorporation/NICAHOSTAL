@@ -105,6 +105,7 @@
     <Content Include="Scripts\marca.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\producto.js" />
+    <Content Include="Scripts\SweetAlert2.js" />
     <Content Include="Scripts\tipohabitacion.js" />
     <Content Include="Web.config" />
   </ItemGroup>

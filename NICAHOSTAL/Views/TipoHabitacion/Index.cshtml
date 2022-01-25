@@ -2,24 +2,52 @@
 @{
     ViewBag.Title = "Index";
 }
+<br />
+<fieldset class="form-control">
+    <legend>Datos de Tipo Habitacion</legend>
+    <form action="/" method="post" id="frmTipoHabitacion">
+        <br />
+        <div class="col-md-1">
+            <label>ID Tipo Habitacion</label>
+            <input type="text" class="form-control" name="Id" value="0" readonly />
+        </div>
 
-<h2>TipoHabitacion</h2>
+        <div class="col-md-4">
+            <label>Nombre Habitacion</label>
+            <input type="text" class="form-control" name="Nombre" required />
+        </div>
 
-<div class="input-group mb-3">
-    <input type="text" 
-           id="txtnombreTipoHabiacion"
-           class="form-control" 
-           placeholder="Ingrese Nombre Tipo Habitacion"
-           />
-    <button class="btn btn-primary" 
-            onclick="Buscar()"
-            type="button" 
-            id="btnnombreTipoHabitacion"> Buscar</button>
+        <div class="col-md-6">
+            <label>Descripcion</label>
+            <input type="text" class="form-control" name="Descripcion" required />
+        </div>
+        <br />
+    </form>
+    <div class="form-control">
+        <button class="btn btn-primary" onclick="GuardarDatos()">Aceptar</button>
+        <button class="btn btn-danger" onclick="Limpiar()">Limpiar</button>
+    </div>
+</fieldset>
+
+<br />
+<div class="container">
+    <div class="input-group mb-3">
+        <input type="text"
+               id="txtnombreTipoHabiacion"
+               class="form-control"
+               placeholder="Ingrese Nombre Tipo Habitacion" />
+        <button class="btn btn-primary"
+                onclick="Buscar()"
+                type="button"
+                id="btnnombreTipoHabitacion">
+            Buscar
+        </button>
+    </div>
 </div>
-   
+
 <div id="divtabla">
     Tabla
 </div>
-
+<script src="~/Scripts/SweetAlert2.js"></script>
 <script src="~/Scripts/generic.js"></script>
 <script src="~/Scripts/tipohabitacion.js"></script>
