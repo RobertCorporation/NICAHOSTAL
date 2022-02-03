@@ -48,5 +48,11 @@ namespace NICAHOSTAL.Controllers
             TipoHabitacionBL oTipoHabitacionBL = new TipoHabitacionBL();
             return Json(oTipoHabitacionBL.BuscarPorId(Id), JsonRequestBehavior.AllowGet);
         }
+
+        public int EliminarDatos(int Id)
+        {
+            TipoHabitacionBL obj = new TipoHabitacionBL();
+            return obj.EliminarTipoHabitacion(Id);
+        }
     }
 }

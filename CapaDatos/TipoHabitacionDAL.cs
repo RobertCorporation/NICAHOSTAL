@@ -205,5 +205,33 @@ namespace CapaDatos
             }
             return oTipoHabitacionCLS;
         }
+
+        public int EliminarTipoHabitacion(int IdTipoHabitacion)
+        {
+            // Error
+            int resultado = 0;
+            using (SqlConnection con = new SqlConnection(Cadena))
+            {
+                try
+                {
+                    //Abro la conexion
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand("uspEliminarTipoHabitacion", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@id", IdTipoHabitacion);
+                        resultado = cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+                catch (Exception e)
+                {
+                    resultado = 0;
+                    con.Close();
+                    Console.WriteLine("Ha ocurrido un error con los datos de entradas" + e.Message);
+                }
+            }
+            return resultado;
+        }
     }
 }

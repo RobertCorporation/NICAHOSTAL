@@ -30,7 +30,7 @@ function Limpiar() {
     //setParametros("Id", "")
     //setParametros("Nombre", "")
     //setParametros("Descripcion", "")
-    LimpiarDatos("frmTipoHabitacion", ["Id"])
+    LimpiarDatos("frmTipoHabitacion")
     //Correcto("Funciono mi alerta")
 }
 
@@ -56,10 +56,24 @@ function GuardarDatos() {
         })*/
 }
 
-function Editar() {
-    fetchGet("TipoHabitacion/BuscarPorId/?Id=" + id, function (res) {
-        setN("Id")
-        setN("Nombre")
-        setN("Descripcion")
+function Editar(id) {
+    //fetchGet("TipoHabitacion/BuscarPorId/?id=" + id, function (res) {
+    //    setParametros("Id", res.Id)
+    //    setParametros("Nombre", res.Nombre)
+    //    setParametros("Descripcion", res.Descripcion)
+    //})
+
+    RecuperarGenerico("TipoHabitacion/BuscarPorId/?id=" + id, "frmTipoHabitacion");
+}
+
+function Eliminar(id) {
+    Confirmacion("¿Desea Eliminar el Tipo Habitacion?", "Confirmar eliminar", function (res) {
+        fetchGetText("TipoHabitacion/EliminarDatos/?Id=" + id, function (rpta) {
+            if (rpta == "1") {
+                Correcto("Se Eliminó Correctamente");
+                listarTipoHabitacion();
+
+            }
+        })
     })
 }

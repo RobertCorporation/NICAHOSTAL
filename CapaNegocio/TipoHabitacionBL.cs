@@ -36,6 +36,12 @@ namespace CapaNegocio
             return oTipoHabitacionDAL.BuscarPorId(Id);
         }
 
+        public int EliminarTipoHabitacion(int IdTipoHabitacion)
+        {
+            TipoHabitacionDAL oTipoHabitacionDAL = new TipoHabitacionDAL();
+            return oTipoHabitacionDAL.EliminarTipoHabitacion(IdTipoHabitacion);
+        }
+
 
     }
 }
