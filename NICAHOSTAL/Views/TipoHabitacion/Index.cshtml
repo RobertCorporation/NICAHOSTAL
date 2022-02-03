@@ -6,22 +6,22 @@
 <fieldset class="form-control">
     <legend>Datos de Tipo Habitacion</legend>
     <form action="/" method="post" id="frmTipoHabitacion">
-        <br />
-        <div class="col-md-1">
-            <label>ID Tipo Habitacion</label>
-            <input type="text" class="form-control" name="Id" value="0" readonly />
-        </div>
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label>ID Tipo Habitacion</label>
+                <input type="text" class="form-control" name="Id" value="0" readonly />
+            </div>
 
-        <div class="col-md-4">
-            <label>Nombre Habitacion</label>
-            <input type="text" class="form-control" name="Nombre" required />
+            <div class="mb-3 col-md-6">
+                <label>Nombre Habitacion</label>
+                <input type="text" class="form-control" name="Nombre" required />
+            </div>
         </div>
-
-        <div class="col-md-6">
+        
+        <div class="mb-3 col-md-12">
             <label>Descripcion</label>
             <input type="text" class="form-control" name="Descripcion" required />
         </div>
-        <br />
     </form>
     <div class="form-control">
         <button class="btn btn-primary" onclick="GuardarDatos()">Aceptar</button>

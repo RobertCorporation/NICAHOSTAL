@@ -50,7 +50,7 @@ function setParametros(Id, valor) {
 
 var objConfiguracionGlobal;
 var objBusquedaGlobal;
-function pintar(objConfiguracion, objBusqueda) {
+function pintar(objConfiguracion, objBusqueda, objFormulario) {
     //URL Absoluta  https://localhost ...
     var raiz = document.getElementById("hdfOculto").value;
     var urlAbsolute = window.location.protocol + "//" +
@@ -61,6 +61,36 @@ function pintar(objConfiguracion, objBusqueda) {
         .then(res => res.json())
         .then(res => {
             var contenido = "";
+             //Configuracion de Formulario
+            if (objFormulario != undefined) {
+               
+                if (objFormulario.guardar == undefined)
+                    objFormulario.guardar = true            
+                if (objFormulario.limpiar == undefined)
+                    objFormulario.limpiar = true
+                if (objFormulario.formulariogenerico == undefined)
+                    objFormulario.formulariogenerico = false
+                
+                var type = objFormulario.type;
+                if (type == "fieldset") {
+                    contenido += "<fieldset class='form-control'>";
+                    if (objFormulario.legend != undefined) {
+                        contenido += "<legend>" + objFormulario.legend + "</legend>";
+                    }
+
+                    contenido += ConstruirFormulario(objFormulario)
+                    contenido += `
+                    ${objFormulario.guardar == true ? `<div class="form-control">
+                    <button class="btn btn-primary"
+                    onclick="${ (objFormulario.formulariogenerico == undefined
+                            || objFormulario.formulariogenerico == false ) ? 'GuardarDatos()'
+                    :'GuardarGenerico()'}"> Aceptar</button>` : ''}
+
+                    ${objFormulario.limpiar == true ? `<button class="btn btn-danger" onclick="Limpiar()">Limpiar</button></div >`:'' }`
+                    contenido += "</fieldset>";
+                }
+               
+            }
             if (objBusqueda != undefined && objBusqueda.busqueda == true) {
                 if (objBusqueda.placeholder == undefined)
                     objBusqueda.placeholder = "Ingrese un Valor"
@@ -79,7 +109,7 @@ function pintar(objConfiguracion, objBusqueda) {
                 //asignar Valores
                 objConfiguracionGlobal = objConfiguracion;
                 objBusquedaGlobal = objBusqueda;
-              
+                
                 contenido += `<div class="input-group mb-3">`
 
                 contenido += `<input type="${objBusqueda.type}" class="form-control"
@@ -247,4 +277,54 @@ function RecuperarGenerico(url, idFormulario, exceptiones = []) {
 
     });
     
+}
+
+function ConstruirFormulario(objFormulario) {
+    var elementos = objFormulario.formulario;
+    var contenido = "<div class='mt-3 mb-3'>";
+    //Filas
+    var arrayelemento;
+    var numeroarrayelemento;
+    for (var i = 0; i < elementos.length; i++) {
+        arrayelemento = elementos[i];
+        numeroarrayelemento = arrayelemento.length;
+        contenido += "<div class='row'>";
+        for (var j = 0; j < numeroarrayelemento; j++){
+            var hijosArray = arrayelemento[j]
+            if (hijosArray.class == undefined) {
+                hijosArray.class = "mb-3";
+            }
+            if (hijosArray.type == undefined) {
+                hijosArray.type = "text";
+            }
+            if (hijosArray.readonly == undefined) {
+                hijosArray.readonly = false;
+            }
+            if (hijosArray.value == undefined) {
+                hijosArray.value = "";
+            }
+            if (hijosArray.label == undefined) {
+                hijosArray.label = hijosArray.name;
+            }
+            if (hijosArray.rows == undefined) {
+                hijosArray.rows = "3";
+            }
+            if (hijosArray.cols == undefined) {
+                hijosArray.cols = "10";
+            }
+            var typelemento = hijosArray.type;
+            contenido += `<div class="${hijosArray.class}">`
+            contenido += `<label>${hijosArray.label}</label>`
+            if (typelemento == "text" || typelemento == "number" || typelemento == "date") {
+                contenido += `<input type="${typelemento}" class="form-control" name="${hijosArray.name}" value="${hijosArray.value}" ${hijosArray.readonly == true ? "readonly": ""} />`
+            } else if (typelemento == "textarea") {
+                contenido += `<textarea name="${hijosArray.name}"
+                class="form-control"
+                rows="${hijosArray.rows}" cols="${hijosArray.cols}"> ${hijosArray.value}</textarea>`
+            }
+            contenido += `</div>`
+        }
+        contenido += "</div>"
+    }        
+    return contenido;
 }
