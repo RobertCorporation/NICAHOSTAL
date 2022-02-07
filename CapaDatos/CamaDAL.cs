@@ -108,6 +108,114 @@ namespace CapaDatos
             }   
             return _lista;
         }
-         
+
+        public int GuardarCama(CamaCLS oCamaCLS)
+        {
+            int resultado = 0;
+            using (SqlConnection con = new SqlConnection(Cadena))
+            {
+                try
+                {
+                    //Abrir Conexion
+                    con.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("uspGuardarCama", con))
+                    {
+                        try
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@id", oCamaCLS.IdCama);
+                            cmd.Parameters.AddWithValue("@nombre", oCamaCLS.Nombre);
+                            cmd.Parameters.AddWithValue("@descripcion", oCamaCLS.Descripcion);
+                            resultado = cmd.ExecuteNonQuery();
+                        }
+                        catch (SqlException ex)
+                        {
+                            Console.Error.WriteLine("Ha ocurrido un Error " + ex.ErrorCode, ex.Errors, ex.Message, ex.Procedure, ex.StackTrace);
+                            con.Close();
+                        }
+                        con.Close();
+                    }
+                   con.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine(ex.Message.ToString());
+                    con.Close();
+                    
+                }
+
+            }
+
+            return resultado;
+        }
+
+        public CamaCLS RecuperarCamaPorId(int id)
+        {
+            CamaCLS oCamaCLS = null;
+            using (SqlConnection con = new SqlConnection(Cadena))
+            {
+                try
+                {
+                    con.Open();
+                    using (SqlCommand cmd =new SqlCommand("uspRecuperarCama", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@id", id);
+                        SqlDataReader read = cmd.ExecuteReader();
+                        if (read != null)
+                        {
+                            int posId = read.GetOrdinal("IdCama");
+                            int posNombre = read.GetOrdinal("Nombre");
+                            int posDescripcion = read.GetOrdinal("Descripcion");
+
+                            while (read.Read())
+                            {
+                                oCamaCLS = new CamaCLS();
+                                oCamaCLS.IdCama = read.IsDBNull(posId) ? 0 : read.GetInt32(posId);
+                                oCamaCLS.Nombre = read.IsDBNull(posNombre) ? "" : read.GetString(posNombre);
+                                oCamaCLS.Descripcion = read.IsDBNull(posDescripcion) ? "" : read.GetString(posDescripcion);
+                                
+                            }
+                        }
+
+                        con.Close();
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.Error.WriteLine(ex.Message.ToString());
+                    con.Close();
+                    
+                }
+            }
+                return oCamaCLS;
+        }
+        
+        public int EliminarCama(int IdCama)
+        {
+            int respuesta = 0;
+            using (SqlConnection con = new SqlConnection(Cadena))
+            {
+                try
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand("uspEliminarCama", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@id", IdCama);
+                        respuesta = cmd.ExecuteNonQuery();
+
+                    }
+                    con.Close();
+                }
+                catch (SqlException ex)
+                {
+                    Console.Error.WriteLine("Errro!! " + ex.Message.ToString());
+                    con.Close();
+                }
+            }
+            return respuesta;
+        }
     }
 }
