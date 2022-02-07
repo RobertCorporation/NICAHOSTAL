@@ -22,5 +22,23 @@ namespace CapaNegocio
             CamaDAL _filtrarCamaPorNombre = new CamaDAL();
             return _filtrarCamaPorNombre.BuscarPorNombre(nombre);
         }
+
+        public int GuardarCama(CamaCLS oCamaCLS)
+        {
+            CamaDAL oCama = new CamaDAL();
+            return oCama.GuardarCama(oCamaCLS);
+        }
+
+        public CamaCLS RecuperarCamaPorId(int id)
+        {
+            CamaDAL oCamaDAL = new CamaDAL();
+            return oCamaDAL.RecuperarCamaPorId(id);
+        }
+
+        public int EliminarCama(int idCama)
+        {
+            CamaDAL ocama = new CamaDAL();
+            return ocama.EliminarCama(idCama);
+        }
     }
 }

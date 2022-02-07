@@ -10,6 +10,11 @@ function ListarCama() {
         propiedades: ["IdCama", "Nombre", "Descripcion"],
         editar: true,
         eliminar: true,
+        urlEliminar: "Cama/EliminarCama",
+        parametroEliminar: "IdCama",
+        urlRecuperar: "Cama/RecuperarCama",
+        parametroRecuperar: "IdCamita",
+        propiedadId: "IdCama"
     },
         {
             busqueda: true,
@@ -21,17 +26,16 @@ function ListarCama() {
             id: "txtnombrecama",
         },
         {
-            type: "fieldset",
-            guardar: true,
-            limpiar: true,
-            formulariogenerico : false,  // en caso que desee usar el guardado del formulario Genericamente poner en true
+            Id:"frmCama",
+            type: "fieldset",               
+            urlGuardar:"Cama/GuardarCama",
             legend: "Datos de la Cama",
             formulario: [
                 [{
                     class: "mb-3 col-md-5",
                   
                     label: "Id Cama",
-                    name: "Id",
+                    name: "IdCama",
                     value: 0,
                     readonly: true
                 },
